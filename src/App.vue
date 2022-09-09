@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    {{search}}
+    valore cercato: {{search}}
     <MainHeader @search="onSearch" />
-    <MainContent />
+    <MainContent :searched="search" />
   </div>
 </template>
 

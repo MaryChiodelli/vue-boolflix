@@ -1,5 +1,6 @@
 <template>
   <main>
+    {{query}}
     <ul>
       <li v-for="movie in movies" :key="movie.id">
         <p>{{ movie.title }}</p>
@@ -16,12 +17,23 @@ import axios from 'axios';
 
 export default {
   name: 'MainContent',
+  props: {
+    searched: String
+  },
   data() {
     return {
       BASE_URI: 'https://api.themoviedb.org/3',
       api_key: '735e75087705e688a8302c51505637e4',
-      query: 'ritorno',
+      // query: '',
       movies: []
+    }
+  },
+  computed: {
+    query() {
+      if (!this.searched) {
+        return 'ritorno'
+      }
+      return this.searched
     }
   },
   methods: {
@@ -34,6 +46,9 @@ export default {
     }
   },
   created() {
+    this.fetchMovies();
+  },
+  updated() {
     this.fetchMovies();
   }
 }
