@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MainHeader @onSearchMovies="getMovies" @onSearchSeries="getSeries" />
-    <MainContent :movies="movies" :series="series" />
+    <MainContent :movies="mapped_movies" :series="mapped_series" />
   </div>
 </template>
 
@@ -17,16 +17,42 @@ export default {
   },
   data() {
     return {
-      movies: [],
-      series: []
+      original_movies: [],
+      original_series: []
+    }
+  },
+  computed: {
+    mapped_movies() {
+      return this.original_movies.map((movie) => {
+        return {
+          id: movie.id,
+          title: movie.title,
+          original_title: movie.original_title,
+          lang: movie.original_language,
+          vote: movie.vote_average,
+          poster: `https://image.tmdb.org/t/p/w342${movie.poster_path}`
+        }
+      });
+    },
+    mapped_series() {
+      return this.original_series.map((serie) => {
+        return {
+          id: serie.id,
+          title: serie.name,
+          original_title: serie.original_name,
+          lang: serie.original_language,
+          vote: serie.vote_average,
+          poster: `https://image.tmdb.org/t/p/w342${serie.poster_path}`
+        }
+      });
     }
   },
   methods: {
     getMovies(data) {
-      this.movies = data;
+      this.original_movies = data;
     },
     getSeries(data) {
-      this.series = data;
+      this.original_series = data;
     }
   }
 }
