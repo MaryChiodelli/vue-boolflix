@@ -29,7 +29,7 @@ export default {
           title: movie.title,
           original_title: movie.original_title,
           lang: movie.original_language,
-          vote: movie.vote_average,
+          vote: Math.ceil(movie.vote_average / 2),
           poster: `https://image.tmdb.org/t/p/w342${movie.poster_path}`
         }
       });
@@ -41,7 +41,7 @@ export default {
           title: serie.name,
           original_title: serie.original_name,
           lang: serie.original_language,
-          vote: serie.vote_average,
+          vote: Math.ceil(serie.vote_average / 2),
           poster: `https://image.tmdb.org/t/p/w342${serie.poster_path}`
         }
       });

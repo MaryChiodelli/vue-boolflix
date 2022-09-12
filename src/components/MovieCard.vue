@@ -7,7 +7,10 @@
       <img v-else-if="info.lang === 'en'" src="../assets/en-flag.png" alt="">
       <span v-else>{{ info.lang }}</span>
     </p>
-    <p>{{ info.vote }}</p>
+    <div>
+      <font-awesome-icon v-for="n in info.vote" :key="n" icon="fa-solid fa-star"></font-awesome-icon>
+      <font-awesome-icon icon="fa-regular fa-star"></font-awesome-icon>
+    </div>
     <img :src="info.poster" alt="info.title">
   </div>
 </template>
@@ -16,7 +19,7 @@
 export default {
   name: 'MovieCard',
   props: {
-    info: Object
+    info: Object,
   }
 }
 </script>
