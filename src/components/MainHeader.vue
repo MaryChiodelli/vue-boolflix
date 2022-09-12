@@ -1,7 +1,10 @@
 <template>
   <header>
-    <input v-model="query" type="text" placeholder="Inserisci un titolo">
-    <button @click="getData">cerca</button>
+    <h1>Boolflix</h1>
+    <div>
+      <input v-model="query" type="text" placeholder="Inserisci un titolo">
+      <button @click="getData">Cerca</button>
+    </div>
   </header>
 </template>
 
@@ -57,5 +60,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
+header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+}
 
+h1 {
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #e50914;
+}
+
+input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid white;
+  border-radius: 2px;
+  margin-right: 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: transparent;
+}
+
+button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e50914;
+  border-radius: 2px;
+  font-size: 1rem;
+  background-color: #e50914;
+  color: white;
+}
 </style>
