@@ -9,7 +9,7 @@
     </p>
     <div>
       <font-awesome-icon v-for="n in info.vote" :key="n" icon="fa-solid fa-star"></font-awesome-icon>
-      <font-awesome-icon icon="fa-regular fa-star"></font-awesome-icon>
+      <font-awesome-icon v-for="n in 5 - info.vote" :key="5 + n" icon="fa-regular fa-star"></font-awesome-icon>
     </div>
     <img :src="info.poster" alt="info.title">
   </div>
