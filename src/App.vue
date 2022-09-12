@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    {{movies}}
-    <MainHeader @onSearch="getMovies" />
-    <MainContent :movies="movies" />
+    <MainHeader @onSearchMovies="getMovies" @onSearchSeries="getSeries" />
+    <MainContent :movies="movies" :series="series" />
   </div>
 </template>
 
@@ -18,12 +17,16 @@ export default {
   },
   data() {
     return {
-      movies: []
+      movies: [],
+      series: []
     }
   },
   methods: {
     getMovies(data) {
       this.movies = data;
+    },
+    getSeries(data) {
+      this.series = data;
     }
   }
 }

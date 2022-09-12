@@ -1,7 +1,7 @@
 <template>
   <header>
     <input v-model="query" type="text" placeholder="Inserisci un titolo">
-    <button @click="fetchMovies">cerca</button>
+    <button @click="getData">cerca</button>
   </header>
 </template>
 
@@ -18,19 +18,38 @@ export default {
     }
   },
   methods: {
-    fetchMovies() {
+    getData() {
       if (!this.query.trim()) {
         return
       }
 
+      this.fetchMovies();
+      this.fetchSeries();
+    },
+    fetchMovies() {
       axios
         .get(`${this.BASE_URI}/search/movie`, {
-          api_key: this.api_key,
-          query: this.query.trim()
+          params: {
+            api_key: this.api_key,
+            query: this.query.trim()
+          }
         })
         .then((res) => {
           console.log(res.data.results);
-          this.$emit('onSearch', res.data.results);
+          this.$emit('onSearchMovies', res.data.results);
+        });
+    },
+    fetchSeries() {
+      axios
+        .get(`${this.BASE_URI}/search/tv`, {
+          params: {
+            api_key: this.api_key,
+            query: this.query.trim()
+          }
+        })
+        .then((res) => {
+          console.log(res.data.results);
+          this.$emit('onSearchSeries', res.data.results);
         });
     }
   }
