@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    valore cercato: {{search}}
-    <MainHeader @search="onSearch" />
-    <MainContent :searched="search" />
+    {{movies}}
+    <MainHeader @onSearch="getMovies" />
+    <MainContent :movies="movies" />
   </div>
 </template>
 
@@ -18,12 +18,12 @@ export default {
   },
   data() {
     return {
-      search: ''
+      movies: []
     }
   },
   methods: {
-    onSearch(data) {
-      this.search = data;
+    getMovies(data) {
+      this.movies = data;
     }
   }
 }
