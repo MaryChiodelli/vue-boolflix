@@ -14,7 +14,9 @@
         <font-awesome-icon v-for="n in info.vote" :key="n" icon="fa-solid fa-star"></font-awesome-icon>
         <font-awesome-icon v-for="n in (5 - info.vote)" :key="n + info.vote" icon="fa-regular fa-star"></font-awesome-icon>
       </div>
+
       <button @click="getCastInfo">Altre info</button>
+      <p>{{castList}}</p>
       <p>{{genreList}}</p>
     </div>
   </div>
@@ -43,6 +45,15 @@ export default {
         genreArray.push(el.name);
       });
       return genreArray.join(', ');
+    },
+    castList() {
+      let names = [];
+      this.cast.forEach((el, i) => {
+        if (i < 5) {
+          names.push(el.name);
+        }
+      })
+      return names.join(', ')
     }
   },
   methods: {
@@ -58,6 +69,7 @@ export default {
           }
         })
         .then((res) => {
+          console.log(res.data.genres);
           this.genres = res.data.genres;
         });
     },
@@ -69,8 +81,8 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res.data);
-          this.cast = res.data;
+          console.log(res.data.cast);
+          this.cast = res.data.cast;
         });
     }
   }
