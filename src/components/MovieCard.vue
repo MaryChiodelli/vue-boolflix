@@ -1,17 +1,18 @@
 <template>
   <div class="card">
-     <img :src="info.poster" alt="info.title">
+    <img class="poster" v-if="info.poster" :src="info.poster" alt="info.title">
+    <div class="placeholder" v-else></div>
+
     <div class="card-content">
-      <p>{{ info.title }}</p>
-      <p>{{ info.original_title }}</p>
-      <p>
-        <img v-if="info.lang === 'it'" src="../assets/it-flag.png" alt="">
-        <img v-else-if="info.lang === 'en'" src="../assets/en-flag.png" alt="">
-        <span v-else>{{ info.lang }}</span>
-      </p>
-      <div>
+      <h3 class="title">{{ info.title }}</h3>
+      <p class="original-title">{{ info.original_title }}</p>
+
+      <img class="flag" v-if="info.flag" :src="info.flag" alt="">
+      <div class="lang" v-else>{{ info.lang }}</div>
+      
+      <div class="stars">
         <font-awesome-icon v-for="n in info.vote" :key="n" icon="fa-solid fa-star"></font-awesome-icon>
-        <font-awesome-icon v-for="n in 5 - info.vote" :key="5 + n" icon="fa-regular fa-star"></font-awesome-icon>
+        <font-awesome-icon v-for="n in (5 - info.vote)" :key="n + info.vote" icon="fa-regular fa-star"></font-awesome-icon>
       </div>
     </div>
   </div>
@@ -31,22 +32,16 @@ export default {
   height: 100%;
   position: relative;
 
-  img {
+  .poster {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
 
-    &::after {
-      contain: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      background-color: rgba(0, 0, 0, 1);
-    }
+  .placeholder {
+    height: 100%;
+    border: 8px solid black;
   }
 
   .card-content {
@@ -60,7 +55,16 @@ export default {
 
     &:hover {
       opacity: 1;
+      background-color: black;
     }
+  }
+
+  .flag {
+    width: 40px;
+  }
+
+  .stars * {
+    margin-right: 0.25rem;
   }
 }
 </style>
