@@ -9,20 +9,70 @@
 
       <img class="flag" v-if="info.flag" :src="info.flag" alt="">
       <div class="lang" v-else>{{ info.lang }}</div>
-      
+
       <div class="stars">
         <font-awesome-icon v-for="n in info.vote" :key="n" icon="fa-solid fa-star"></font-awesome-icon>
         <font-awesome-icon v-for="n in (5 - info.vote)" :key="n + info.vote" icon="fa-regular fa-star"></font-awesome-icon>
       </div>
+      <button @click="getCastInfo">Altre info</button>
+      <p>{{genreList}}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'MovieCard',
   props: {
     info: Object,
+  },
+  data() {
+    return {
+      BASE_URI: 'https://api.themoviedb.org/3',
+      api_key: '735e75087705e688a8302c51505637e4',
+      genres: [],
+      cast: []
+    }
+  },
+  computed: {
+    genreList() {
+      let genreArray = []
+      this.genres.forEach((el) => {
+        genreArray.push(el.name);
+      });
+      return genreArray.join(', ');
+    }
+  },
+  methods: {
+    getCastInfo() {
+      this.fetchGenres();
+      this.fetchCast();
+    },
+    fetchGenres() {
+      axios
+        .get(`${this.BASE_URI}/movie/${this.info.id}`, {
+          params: {
+            api_key: this.api_key
+          }
+        })
+        .then((res) => {
+          this.genres = res.data.genres;
+        });
+    },
+    fetchCast() {
+      axios
+        .get(`${this.BASE_URI}/movie/${this.info.id}/credits`, {
+          params: {
+            api_key: this.api_key
+          }
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.cast = res.data;
+        });
+    }
   }
 }
 </script>
