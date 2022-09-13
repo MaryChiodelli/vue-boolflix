@@ -10,6 +10,7 @@
 
 <script>
 import axios from 'axios';
+import state from '../store.js'
 
 export default {
   name: 'MainHeader',
@@ -26,10 +27,6 @@ export default {
         return
       }
 
-      this.fetchMovies();
-      this.fetchSeries();
-    },
-    fetchMovies() {
       axios
         .get(`${this.BASE_URI}/search/movie`, {
           params: {
@@ -39,10 +36,9 @@ export default {
         })
         .then((res) => {
           console.log(res.data.results);
-          this.$emit('onSearchMovies', res.data.results);
+          state.original_movies = res.data.results;
         });
-    },
-    fetchSeries() {
+
       axios
         .get(`${this.BASE_URI}/search/tv`, {
           params: {
@@ -52,7 +48,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data.results);
-          this.$emit('onSearchSeries', res.data.results);
+          state.original_series = res.data.results;
         });
     }
   }
